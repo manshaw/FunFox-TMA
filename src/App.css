@@ -1,6 +1,6 @@
 #root {
+  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
   background-image: radial-gradient(#1B3B6C, #0D1D36, #000000);
 }

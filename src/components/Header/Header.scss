@@ -1,0 +1,63 @@
+.header{
+    display: flex;
+    width: 100vi;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+
+    .container{
+        display: flex;
+        width: 100%;
+        margin: 0px 20px;
+        border-radius: 12px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        background-color: rgb(255, 255, 255);
+
+        .header-title{
+            font-weight: 100;
+            padding: 5px;
+            font-size: 2vw;
+        }
+
+        .user-img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgb(120, 120, 120);
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 0px) 
+ {
+    .header-logo{
+        width: 25px;
+        height: 9px;
+    }
+ }
+
+
+@media (min-width: 400px) 
+ {
+    .header-logo{
+        width: 50px;
+        height: 20px;
+    }
+ }
+
+
+ @media (min-width: 800px) 
+ {
+    .header-logo{
+        width: 100px;
+        height: 40px;
+    }
+ }

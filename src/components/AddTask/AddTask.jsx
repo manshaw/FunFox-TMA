@@ -42,24 +42,7 @@ const AddTask = () => {
     Swal.fire("Error", "Fill all fields", "error");
   };
 
-  const FetchUsers = () => {
-    showLoading();
-
-    axios
-      .request("http://localhost:3000/user/all")
-      .then((response) => {
-        Swal.close();
-        console.log("USER ALL ====>>>", response.data.data);
-        setAllUsers(response.data.data);
-      })
-      .catch((error) => {
-        Swal.fire({
-          title: "Error",
-          text: error.message,
-          icon: "error",
-        });
-      });
-  };
+ 
 
   const PostTask = () => {
     showLoading();
@@ -110,6 +93,24 @@ const AddTask = () => {
   };
 
   useEffect(() => {
+    const FetchUsers = () => {
+        showLoading();
+    
+        axios
+          .request("http://localhost:3000/user/all")
+          .then((response) => {
+            Swal.close();
+            console.log("USER ALL ====>>>", response.data.data);
+            setAllUsers(response.data.data);
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Error",
+              text: error.message,
+              icon: "error",
+            });
+          });
+      };
     FetchUsers();
   }, []);
   return (

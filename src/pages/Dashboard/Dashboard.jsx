@@ -9,20 +9,23 @@ import { UserContext } from "../../context/UserContext";
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const userContext = useContext(UserContext);
-  const fetchTasks = async () => {
-    const response = await axios.get(
-      "http://localhost:3000/task/user/" + userContext.user.userId
-    );
-    setTasks(response.data.data);
-  };
 
   useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await axios.get(
+        "http://localhost:3000/task/user/" + userContext.user.userId
+      );
+      setTasks(response.data.data);
+    };
     fetchTasks();
-  }, [tasks]);
+  }, [tasks, userContext]);
   return (
     <>
       <div className="dashboard-page">
-        <Header title={userContext.user.group} pictureUrl={userContext.user.pictureUrl}></Header>
+        <Header
+          title={userContext.user.group}
+          pictureUrl={userContext.user.pictureUrl}
+        ></Header>
         <AddTask></AddTask>
         <List tasks={tasks}></List>
       </div>

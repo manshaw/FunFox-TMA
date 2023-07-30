@@ -2,6 +2,8 @@
 
 ### Dear Team, i have developed this app from scratch including backend in Node.js. I have deployed both BE and FE on vercel. I hope you like it.
 
+# Working Demo Video [https://www.youtube.com/watch?v=el1KMK4DbPw]
+
 # Frontend (React + Vite)
 1. Deployed on Vercel [https://fun-fox-tma-fe.vercel.app]
 1. Used React with Vite
@@ -22,8 +24,21 @@
 1. npm install
 1. npm run dev
 
+### Users Login
+
+#### USER 01
+User (Muhammad)
+UserID: 1234
+Password: tma1234
+
+#### USER 02
+User (Fatima)
+UserID: 3456
+Password: tma3456
+
 # Backend (Node.js + Fastify + Swagger)
 1. Deployed on Vercel [https://funfox-tma-be.vercel.app]
+1. Gitub Repo Link [https://github.com/manshaw/Funfox-TMA-BE] 
 1. Developed using Node.js
 1. Added Swagger Documentation
 1. Complete Schema supported

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./AddTask.scss";
 import Swal from "sweetalert2";
 import axios from "axios";
+import BASE_URL from "../../constants";
 
 const AddTask = () => {
   const modal = useRef(null);
@@ -58,7 +59,7 @@ const AddTask = () => {
 
     let config = {
       method: "post",
-      url: "http://localhost:3000/task/add",
+      url: BASE_URL + "/task/add",
       headers: {
         "Content-Type": "application/json",
       },
@@ -97,10 +98,9 @@ const AddTask = () => {
         showLoading();
     
         axios
-          .request("http://localhost:3000/user/all")
+          .request(BASE_URL + "/user/all")
           .then((response) => {
             Swal.close();
-            console.log("USER ALL ====>>>", response.data.data);
             setAllUsers(response.data.data);
           })
           .catch((error) => {

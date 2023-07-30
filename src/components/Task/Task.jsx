@@ -3,6 +3,7 @@ import "./Task.scss";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import axios from "axios";
+import BASE_URL from "../../constants";
 
 const Task = ({ task }) => {
   const style = useRef(null);
@@ -25,7 +26,7 @@ const Task = ({ task }) => {
 
     let config = {
       method: "post",
-      url: "http://localhost:3000/task/delete",
+      url: BASE_URL + "/task/delete",
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,10 +34,8 @@ const Task = ({ task }) => {
     };
     axios
       .request(config)
-      .then((response) => {
+      .then(() => {
         Swal.close();
-        console.log("DATA DELTED======>>>>", JSON.stringify(response.data));
-        // window.location.reload();
       })
       .catch((error) => {
         Swal.fire({
@@ -56,7 +55,7 @@ const Task = ({ task }) => {
 
     let config = {
       method: "post",
-      url: "http://localhost:3000/task/update",
+      url: BASE_URL + "/task/update",
       headers: {
         "Content-Type": "application/json",
       },
@@ -65,9 +64,8 @@ const Task = ({ task }) => {
 
     axios
       .request(config)
-      .then((response) => {
+      .then(() => {
         Swal.close();
-        console.log("DATA======>>>>", JSON.stringify(response.data));
       })
       .catch((error) => {
         Swal.fire({

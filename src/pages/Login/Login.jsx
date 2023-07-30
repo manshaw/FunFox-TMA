@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.scss";
 import Swal from "sweetalert2";
 import { UserContext } from "../../context/UserContext";
+import BASE_URL from "../../constants";
 
 const Login = () => {
   const userId = useRef(null);
@@ -50,7 +51,7 @@ const Login = () => {
 
     let config = {
       method: "post",
-      url: "http://localhost:3000/signin",
+      url: BASE_URL + "/signin",
       headers: {
         "Content-Type": "application/json",
       },

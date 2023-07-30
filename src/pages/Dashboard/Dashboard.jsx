@@ -5,6 +5,7 @@ import List from "../../components/List/List";
 import "./Dashboard.scss";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
+import BASE_URL from "../../constants";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -13,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       const response = await axios.get(
-        "http://localhost:3000/task/user/" + userContext.user.userId
+        BASE_URL + "/task/user/" + userContext.user.userId
       );
       setTasks(response.data.data);
     };

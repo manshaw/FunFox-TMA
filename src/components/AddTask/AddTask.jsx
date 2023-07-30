@@ -1,9 +1,23 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./AddTask.scss";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const AddTask = () => {
   const modal = useRef(null);
+  const title = useRef(null);
+  const description = useRef(null);
+  const assigneeId = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
+
+  const getDate = () => {
+    var date = new Date();
+    var year = date.toISOString().split("-")[0];
+    var month = date.toISOString().split("-")[1];
+    var day = date.getDate().toString();
+    return day + "-" + month + "-" + year;
+  };
 
   const closeModal = () => {
     setIsOpen(!isOpen);
@@ -14,19 +28,118 @@ const AddTask = () => {
     setIsOpen(!isOpen);
     modal.current.style.display = "flex";
   };
+
+  const showLoading = () => {
+    Swal.fire({
+      title: "loading ...",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  };
+
+  const showError = () => {
+    Swal.fire("Error", "Fill all fields", "error");
+  };
+
+  const FetchUsers = () => {
+    showLoading();
+
+    axios
+      .request("http://localhost:3000/user/all")
+      .then((response) => {
+        Swal.close();
+        console.log("USER ALL ====>>>", response.data.data);
+        setAllUsers(response.data.data);
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+        });
+      });
+  };
+
+  const PostTask = () => {
+    showLoading();
+    let data = JSON.stringify({
+      assigneeId: assigneeId.current.value,
+      assignee:
+        assigneeId.current.options[assigneeId.current.selectedIndex].text,
+      title: title.current.value,
+      description: description.current.value,
+      status: "Pending",
+      dated: getDate(),
+    });
+
+    let config = {
+      method: "post",
+      url: "http://localhost:3000/task/add",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        Swal.close();
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+        });
+      });
+  };
+
+  const handleSubmit = () => {
+    validation() ? PostTask() : showError();
+  };
+
+  const validation = () => {
+    return title.current.value !== "" &&
+      description.current.value !== "" &&
+      assigneeId.current.value !== ""
+      ? true
+      : false;
+  };
+
+  useEffect(() => {
+    FetchUsers();
+  }, []);
   return (
     <>
       <div className="modal-container" ref={modal}>
         <div className="modal">
-        <div className="header">
+          <div className="header">
             <div className="h-title">Add New Task</div>
-            <div className="h-close" onClick={closeModal}>X</div>
-        </div>
-        <div className="mbody">
-            <input type="text" placeholder="Enter Title" />
-            <input className="mdesc" type="text" placeholder="Enter Description" />
-            <button>Add</button>
-        </div>
+            <div className="h-close" onClick={closeModal}>
+              X
+            </div>
+          </div>
+          <div className="mbody">
+            <select ref={assigneeId}>
+              <option value="">Select Assignee</option>
+              {allUsers.map((singleUser, index) => (
+                <option key={index} value={singleUser.userId}>
+                  {singleUser.name}
+                </option>
+              ))}
+            </select>
+            <input ref={title} type="text" placeholder="Enter Title" />
+            <input
+              ref={description}
+              className="mdesc"
+              type="text"
+              placeholder="Enter Description"
+            />
+            <button onClick={handleSubmit}>Add</button>
+          </div>
         </div>
       </div>
       <div className="add-task">

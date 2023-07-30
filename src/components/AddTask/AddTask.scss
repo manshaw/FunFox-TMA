@@ -9,7 +9,7 @@
         display: flex;
         width: 100%;
         margin: 0px 20px;
-        border: 2px dashed white;
+        border: 1px solid white;
         border-radius: 12px;
         align-items: center;
         justify-content: space-between;
@@ -73,7 +73,7 @@
 
 
  .modal-container{
-    display: flex;
+    display: none;
     width: 100vi;
     height: 100vh;
     align-items: center;
@@ -86,7 +86,7 @@
 
     .modal{
         display: flex;
-        width: 250px;
+        width: 275px;
         color: white;
         align-items: center;
         flex-direction: column;
@@ -128,22 +128,31 @@
 
         .mbody{
             display: flex;
+            width: 100%;
             flex-direction: column;
 
+            select{
+                padding: 10px;
+                margin: 5px 15px;
+                background-color: white;
+                border: none;
+                border-radius: 8px;
+            }
+
             input{
-                padding: 5px 10px;
+                padding: 10px;
                 border-radius: 8px;
                 border: none;
-                margin: 5px;
+                margin: 5px 15px;
             }
 
             button{
                 background-color: green;
-                margin: 5px;
+                margin: 5px 15px;
                 margin-bottom: 15px;
                 border: none;
                 border-radius: 8px;
-                padding: 5px 10px;
+                padding: 10px;
                 color: white;
 
                 &:hover{

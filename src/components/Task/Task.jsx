@@ -98,7 +98,7 @@ const Task = ({ task }) => {
     task.status === "Completed"
       ? (style.current.style.color = "green")
       : (style.current.style.color = "rgb(193, 51, 51)");
-  }, []);
+  }, [task]);
 
   return (
     <div className="task">

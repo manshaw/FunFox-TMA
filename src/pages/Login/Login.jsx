@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.scss";
 import Swal from "sweetalert2";
+import { UserContext } from "../../context/UserContext";
 
 const Login = () => {
   const userId = useRef(null);
   const password = useRef(null);
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
 
   const showLoading = () => {
     Swal.fire({
@@ -58,7 +61,8 @@ const Login = () => {
       .request(config)
       .then((response) => {
         Swal.close();
-        console.log(JSON.stringify(response.data));
+        userContext.setCurrentUser(response.data.data);
+        console.log(response.data.data);
         navigate("/dashboard");
       })
       .catch((error) => {

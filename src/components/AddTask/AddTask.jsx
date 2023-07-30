@@ -84,9 +84,9 @@ const AddTask = () => {
 
     axios
       .request(config)
-      .then((response) => {
+      .then(() => {
         Swal.close();
-        console.log(JSON.stringify(response.data));
+        closeModal()
       })
       .catch((error) => {
         Swal.fire({

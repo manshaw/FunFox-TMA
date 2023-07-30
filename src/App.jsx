@@ -1,10 +1,25 @@
-import './App.css'
-import Dashboard from './pages/Dashboard/Dashboard';
-import Login from './pages/Login/Login'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import "./App.css";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Login from "./pages/Login/Login";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { UserContext } from "./context/UserContext";
+import { useContext } from "react";
+import PropTypes from "prop-types";
 
 function App() {
+  const userContent = useContext(UserContext);
+
+  const ProtectedRoute = ({ isSignedIn, redirectPath = "/", children }) => {
+    if (!isSignedIn) {
+      return <Navigate to={redirectPath} replace />;
+    }
+
+    return children;
+  };
 
   const router = createBrowserRouter([
     {
@@ -13,8 +28,12 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <Dashboard/>,
-    }
+      element: (
+        <ProtectedRoute isSignedIn={userContent.isSignedIn}>
+          <Dashboard></Dashboard>
+        </ProtectedRoute>
+      ),
+    },
   ]);
 
   return (
@@ -24,4 +43,10 @@ function App() {
   );
 }
 
-export default App
+App.propTypes = {
+  isSignedIn: PropTypes.bool,
+  redirectPath: PropTypes.string,
+  children: PropTypes.node,
+};
+
+export default App;
